@@ -1,6 +1,6 @@
 --- 
 framework: 
-  AdminMode: 1
+  AdminMode: 0
   ApplicationClass: AuthMitEdu
   ApplicationName: AuthMitEdu
   ApplicationUUID: BE7BF848-D8DD-11DB-B714-A2330A4D8A01
@@ -13,10 +13,10 @@ framework:
     RecordBaseClass: Jifty::DBI::Record::Cachable
     User: ''
     Version: 0.0.1
-  DevelMode: 1
+  DevelMode: 0
   L10N: 
     PoDir: share/po
-  LogLevel: DEBUG
+  LogLevel: INFO
   Mailer: Sendmail
   MailerArgs: []
 
@@ -54,5 +54,3 @@ framework:
     ServeStaticFiles: 1
     StaticRoot: share/web/static
     TemplateRoot: share/web/templates
-application:
-  ServerSecret: ItzaSekrit!
