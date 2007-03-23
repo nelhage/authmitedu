@@ -1,0 +1,58 @@
+--- 
+framework: 
+  AdminMode: 1
+  ApplicationClass: AuthMitEdu
+  ApplicationName: AuthMitEdu
+  ApplicationUUID: BE7BF848-D8DD-11DB-B714-A2330A4D8A01
+  Database: 
+    CheckSchema: 1
+    Database: authmitedu
+    Driver: SQLite
+    Host: localhost
+    Password: ''
+    RecordBaseClass: Jifty::DBI::Record::Cachable
+    User: ''
+    Version: 0.0.1
+  DevelMode: 1
+  L10N: 
+    PoDir: share/po
+  LogLevel: DEBUG
+  Mailer: Sendmail
+  MailerArgs: []
+
+  Plugins: 
+    - 
+      SkeletonApp: {}
+    - 
+      REST: {}
+    - 
+      Halo: {}
+    - 
+      ErrorTemplates: {}
+    - 
+      OnlineDocs: {}
+    - 
+      CompressedCSSandJS: {}
+    - 
+      AdminUI: {}
+
+  PubSub: 
+    Backend: Memcached
+    Enable: ~
+  TemplateClass: AuthMitEdu::View
+  Web: 
+    BaseURL: http://localhost
+    DataDir: var/mason
+    Globals: []
+
+    MasonConfig: 
+      autoflush: 0
+      default_escape_flags: h
+      error_format: text
+      error_mode: fatal
+    Port: 8008
+    ServeStaticFiles: 1
+    StaticRoot: share/web/static
+    TemplateRoot: share/web/templates
+application:
+  ServerSecret: ItzaSekrit!
