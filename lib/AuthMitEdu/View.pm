@@ -12,15 +12,15 @@ use Jifty::View::Declare -base;
 
 template endpoint => sub {
     my $user = get('user');
-    outs_raw(qq{<html>
-<head>
-<link rel="openid.server" href="@{[Jifty->web->url(path => "/_/auth")]}" />
-</head>
-<body>
-</body>
-</html>
-});
-
+    html {
+        head {
+            link {{rel is "openid.server",
+                   href is Jifty->web->url(path => "/_/auth")}}
+        }
+        body {
+            h1 { "OpenID auth page for $user" }
+        }
+    }
 };
 
 template data => sub {
@@ -36,16 +36,14 @@ template setup => sub {
 };
 
 template '/_/login' => sub {
-    show(
-        '/_elements/wrapper' => { title => "Need to login" },
-        html {
-            body {
-                p {
-                    "You need to login";
-                }
+    html {
+        body {
+            p {
+                "You need to login";
             }
         }
-    );
+    }
 };
+
 
 1;
