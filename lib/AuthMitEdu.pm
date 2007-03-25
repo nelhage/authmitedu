@@ -10,8 +10,8 @@ our $server;
 sub start {
     $server = Net::OpenID::Server->new(
         get_user    => \&AuthMitEdu::Model::User::remote_user,
-        is_identity => \&AuthMitEdu::Model::User::is_identity,
-        is_trusted  => \&AuthMitEdu::Model::User::is_trusted,
+        is_identity => sub {0},
+        is_trusted  => sub {0},
         setup_url   => Jifty->web->url( path => '/_/setup' ),
     );
 

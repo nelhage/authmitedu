@@ -20,14 +20,27 @@ use Jifty::Action schema {
     param assoc_handle  => render as 'hidden';
     param trust_root    => render as 'hidden';
 
+    param remember      => render as 'checkbox',
+                           label is 'Remember this site';
+
     param action => type is 'text',
                     valid are qw(yes no);
 
 };
 
+sub since {'0.0.2'};
+
 sub take_action {
     my $self = shift;
     my $action = $self->argument_value('action');
+
+    if($self->argument_value('remember')) {
+        my $trust = $action eq 'yes';
+        my $root = AuthMitEdu::Model::TrustRoot->new;
+        $root->create(identity   => Jifty->web->current_user->user_object,
+                      trust_root => $self->argument_value('trust_root'),
+                      trust => $trust);
+    }
 
     if($action eq 'yes') {
         my %args;

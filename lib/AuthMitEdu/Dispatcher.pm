@@ -39,8 +39,18 @@ on qr{^/_/auth/?$} => run {
         my %opts = %$data;
         set $_ => $opts{$_} for keys %opts;
 
+        my $trust_root = $opts{trust_root};
+
         redirect '/error/no_cert' unless $user;
-        redirect '/error/bad_identity/' . $opts{identity} unless $user->is_identity($opts{identity});
+        redirect '/error/bad_identity/' . $opts{identity}
+                unless $user->is_identity($opts{identity});
+        
+        if($user->trusts_root($trust_root)) {
+            Jifty->web->_redirect($AuthMitEdu::server->signed_return_url(%opts));
+        } elsif($user->never_trusts_root($trust_root)) {
+            Jifty->web->_redirect(
+                $AuthMitEdu::server->cancel_return_url(return_to => $opts{return_to}));
+        }
         
         show 'setup';
         

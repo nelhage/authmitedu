@@ -35,7 +35,9 @@ template setup => page {
     my $action = Jifty->web->new_action(class => 'SetupAuth');
     p {
         outs("The site ");
-        a {{href is "$root"} $root};
+        div {{class is "trust_root"}
+            a {{href is "$root"} $root};
+        };
         outs("would like you verify your identity ($identity). " .
              "Do you want to allow them?");
     };
@@ -46,6 +48,8 @@ template setup => page {
                 render_as     => 'hidden',
                 default_value => get $_);
         }
+
+        render_param($action => 'remember');
 
         outs_raw($action->button(
             label       => "Yes",
@@ -63,7 +67,7 @@ template '/error/no_cert' => page {
         outs("You do not seem to have an MIT Certificate. See IS&T's ");
         a {{ href is "http://web.mit.edu/ist/topics/certificates/index.html"}
            "certificate information page"};
-        outs("for more information about how to obtain one.");
+        outs("for information about how to obtain one.");
     }
 };
 
