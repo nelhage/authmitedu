@@ -36,6 +36,8 @@ sub is_trusted {
     return 0;
 }
 
+sub name {return shift->username;}
+
 sub current_user_can {1};
 
 1;

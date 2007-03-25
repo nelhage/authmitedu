@@ -2,6 +2,17 @@ package AuthMitEdu::Dispatcher;
 
 use Jifty::Dispatcher -base;
 
+before '*' => run {
+    if(!Jifty->web->current_user->id) {
+        my $user = AuthMitEdu::Model::User->remote_user;
+        if($user) {
+            warn "Doing a login";
+            Jifty->web->temporary_current_user(
+                AuthMitEdu::CurrentUser->new(username => $user->username));
+        }
+    }
+};
+
 on qr{^/([a-zA-Z][a-zA-Z_0-9]+)$} => run {
     set user => $1;
     show '/endpoint';
