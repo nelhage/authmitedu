@@ -32,9 +32,11 @@ on qr{^/_/auth/?$} => run {
         }
 
         my %opts = %$data;
-        tangent '/_/login' unless $user && $user->is_identity($opts{identity});
-        
         set $_ => $opts{$_} for keys %opts;
+
+        show '/error/no_cert' unless $user;
+        show '/error/bad_identity' unless $user->is_identity($opts{identity});
+        
         show 'setup';
         
     } else {

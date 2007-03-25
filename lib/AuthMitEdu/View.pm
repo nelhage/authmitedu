@@ -54,9 +54,19 @@ template setup => page {
     }
 };
 
-template '/_/login' => page {
+template '/error/no_cert' => page {
     p {
-        "You need to login";
+        outs("You do not seem to have an MIT Certificate. See IS&T's ");
+        a {{ href is "http://web.mit.edu/ist/topics/certificates/index.html"}
+           "certificate information page"};
+        outs("for more information about how to obtain one.");
+    }
+};
+
+template '/error/bad_identity' => page {
+    p {
+        outs("You are currently authenticated as " . Jifty->web->current_user->username .
+            ", but are trying to authenticate as " . get('identity'));
     }
 };
 
