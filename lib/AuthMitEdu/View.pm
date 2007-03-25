@@ -35,4 +35,17 @@ template setup => sub {
     redirect $AuthMitEdu::server->signed_return_url(%args);
 };
 
+template '/_/login' => sub {
+    show(
+        '/_elements/wrapper' => { title => "Need to login" },
+        html {
+            body {
+                p {
+                    "You need to login";
+                }
+            }
+        }
+    );
+};
+
 1;
