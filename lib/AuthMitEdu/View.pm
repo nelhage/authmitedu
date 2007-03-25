@@ -29,39 +29,34 @@ template data => sub {
     outs_raw($data);
 };
 
-template setup => sub {
+template setup => page {
     my $root = get 'trust_root';
     my $identity = get 'identity';
     my $action = Jifty->web->new_action(class => 'SetupAuth');
-    html {
-        head {
-            title {"Let $root verify your identity?"}
-        }
-        body {
-            p { "The site $root would like you verify your identity ($identity). " .
-                "Do you want to allow them?"
-            };
-            form {
-                for (qw(return_to identity assoc_handle trust_root)) {
-                    render_param($action => $_, render_as => 'hidden',
-                                 default_value => get $_);
-                }
-                outs_raw($action->button(label => "Yes",
-                                         arguments => {action => 'yes'}));
-                outs_raw($action->button(label => "No",
-                                         arguments => {action => 'no'}));
-            }
-        }
+    p {
+        "The site $root would like you verify your identity ($identity). " .
+        "Do you want to allow them?";
     };
+    form {
+        for (qw(return_to identity assoc_handle trust_root)) {
+            render_param(
+                $action       => $_,
+                render_as     => 'hidden',
+                default_value => get $_);
+        }
+
+        outs_raw($action->button(
+            label     => "Yes",
+            arguments => { action => 'yes' }));
+        outs_raw($action->button(
+            label     => "No",
+            arguments => { action => 'no' }));
+    }
 };
 
-template '/_/login' => sub {
-    html {
-        body {
-            p {
-                "You need to login";
-            }
-        }
+template '/_/login' => page {
+    p {
+        "You need to login";
     }
 };
 
