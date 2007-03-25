@@ -34,8 +34,10 @@ template setup => page {
     my $identity = get 'identity';
     my $action = Jifty->web->new_action(class => 'SetupAuth');
     p {
-        "The site $root would like you verify your identity ($identity). " .
-        "Do you want to allow them?";
+        outs("The site ");
+        a {{href is "$root"} $root};
+        outs("would like you verify your identity ($identity). " .
+             "Do you want to allow them?");
     };
     form {
         for (qw(return_to identity assoc_handle trust_root)) {
