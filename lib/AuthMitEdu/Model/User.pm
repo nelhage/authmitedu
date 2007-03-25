@@ -38,7 +38,19 @@ sub is_trusted {
 
 sub name {return shift->username;}
 
-sub current_user_can {1};
+sub current_user_can {
+    my $self = shift;
+    my $right = shift;
+
+    return 1 if $right eq 'create';
+    
+    if($right eq 'read') {
+        return 1;
+    } elsif($right eq 'write' && $self->id eq $self->current_user->id) {
+        return 1;
+    }
+    return $self->SUPER::current_user_can($right, @_);
+}
 
 1;
 
