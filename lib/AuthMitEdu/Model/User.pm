@@ -15,6 +15,7 @@ use AuthMitEdu::Record schema {
 
 sub remote_user {
     my $email = $ENV{SSL_CLIENT_S_DN_Email};
+    return unless $email;
     my ($username) = $email =~ /^(.+)@/;
     return unless $username;
     my $user = AuthMitEdu::Model::User->new;
