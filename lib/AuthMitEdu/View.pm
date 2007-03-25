@@ -48,11 +48,13 @@ template setup => page {
         }
 
         outs_raw($action->button(
-            label     => "Yes",
-            arguments => { action => 'yes' }));
+            label       => "Yes",
+            arguments   => { action => 'yes' },
+            key_binding => "Y"));
         outs_raw($action->button(
-            label     => "No",
-            arguments => { action => 'no' }));
+            label       => "No",
+            arguments   => { action => 'no' },
+            key_binding  => "N"));
     }
 };
 
