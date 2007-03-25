@@ -12,6 +12,11 @@ before '*' => run {
     }
 };
 
+on '/error/bad_identity/**' => run {
+    set identity => $1;
+    show '/error/bad_identity';
+};
+
 on qr{^/([a-zA-Z][a-zA-Z_0-9]+)$} => run {
     set user => $1;
     show '/endpoint';
@@ -34,8 +39,8 @@ on qr{^/_/auth/?$} => run {
         my %opts = %$data;
         set $_ => $opts{$_} for keys %opts;
 
-        show '/error/no_cert' unless $user;
-        show '/error/bad_identity' unless $user->is_identity($opts{identity});
+        redirect '/error/no_cert' unless $user;
+        redirect '/error/bad_identity/' . $opts{identity} unless $user->is_identity($opts{identity});
         
         show 'setup';
         
