@@ -30,8 +30,9 @@ template data => sub {
 };
 
 template setup => sub {
-    my %opts = %{get 'setup_opts'};
-    redirect $AuthMitEdu::server->cancel_return_url(return_to => $opts{return_to});
+    my %args;
+    $args{$_} = get $_ for qw(return_to identity assoc_handle trust_root);
+    redirect $AuthMitEdu::server->signed_return_url(%args);
 };
 
 1;

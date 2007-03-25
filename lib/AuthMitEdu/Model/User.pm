@@ -4,6 +4,7 @@ use warnings;
 package AuthMitEdu::Model::User;
 use Jifty::DBI::Schema;
 use URI;
+use Email::Address;
 
 use AuthMitEdu::Record schema {
     column username =>
@@ -13,7 +14,8 @@ use AuthMitEdu::Record schema {
 # Your model-specific methods go here.
 
 sub remote_user {
-    my $username = $ENV{REMOTE_USER};
+    my $email = $ENV{SSL_CLIENT_S_DN_Email};
+    my ($username) = $email =~ /^(.+)@/;
     return unless $username;
     my $user = AuthMitEdu::Model::User->new;
     $user->load_or_create(username => $username);

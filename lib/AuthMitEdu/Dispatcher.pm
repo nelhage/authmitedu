@@ -7,8 +7,16 @@ on qr{^/[a-zA-Z][a-zA-Z_0-9]+$} => run {
     show '/endpoint';
 };
 
+before '/_/*' => run {
+    if(!$ENV{HTTPS}) {
+	redirect 'https://' . $ENV{HTTP_HOST} . $ENV{REQUEST_URI};
+    }
+};
+
 on qr{^/_/auth$} => run {
-    my $cgi = Jifty->handler->cgi;
+    # I know what I am doing is wrong. But N::Server::OpenID croaks if
+    # you pass it a CGI::Fast.
+    my $cgi = bless(Jifty->handler->cgi, 'CGI');
     $AuthMitEdu::server->get_args($cgi);
     $AuthMitEdu::server->post_args($cgi);
     my ($type, $data) = $AuthMitEdu::server->handle_page();
@@ -19,8 +27,7 @@ on qr{^/_/auth$} => run {
         my $user = AuthMitEdu::Model::User->remote_user;
 
         set $_ => $opts{$_} for keys %opts;
-        
-
+ 
         tangent '/_/login' unless $user && $user->is_identity($opts{identity});
         
         show 'setup';
