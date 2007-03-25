@@ -17,9 +17,9 @@ sub remote_user {
     my $email = $ENV{SSL_CLIENT_S_DN_Email};
     return unless $email;
     my ($username) = $email =~ /^(.+)@/;
-    return unless $username;
     my $user = AuthMitEdu::Model::User->new;
-    $user->load_or_create(username => $username);
+    my ($ok, $err) = $user->load_or_create(username => $username);
+    die $err unless $ok;
     return $user;
 }
 
@@ -35,6 +35,8 @@ sub is_trusted {
     my ($self, $root) = @_;
     return 0;
 }
+
+sub current_user_can {1};
 
 1;
 
