@@ -1,0 +1,22 @@
+body {
+  background: #CCCCCC repeat-y center;
+  textalign: center;
+}
+
+#trust_root {
+  border: 2px solid #cc3333;
+  padding: 0.5em;
+  background: white none repeat scroll 0%;
+  overflow: auto;
+  color: black;
+}
+
+#trust_root a:link {
+  color: #cc3333;
+  text-decoration: none;
+}
+
+#trust_root a:visited {
+  color: #cc3333;
+  text-decoration: none;
+}
