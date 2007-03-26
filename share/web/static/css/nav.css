@@ -2,12 +2,12 @@
 
 
 div#navigation {
-        width:598px;
-        height:45px;
+        width:0px;
+        #height:45px;
         position:relative;
 }
 div#navigation ul {
-        width:598px;
+        #width:598px;
         font-family:Tahoma,"Trebuchet MS", sans-serif;
         font-size:11px;
         line-height:11px;
@@ -16,9 +16,9 @@ div#navigation ul {
 ul.menu {
         margin:0;
         padding:6px 0 5px 0;
-        background-color:#202F66;
+        background-color:#CCCCCC;
         list-style-type:none;
-        border-bottom:2px solid #000;
+        #border-bottom:2px solid #000;
 }
 ul.menu li {
         display:inline;

@@ -1,14 +1,14 @@
 body {
-  background: #CCCCCC repeat-y center;
+  background: white repeat-y center;
   textalign: center;
 }
 
 #trust_root {
   border: 2px solid #cc3333;
   padding: 0.5em;
-  background: white none repeat scroll 0%;
-  overflow: auto;
+  background: #CCCCCC;
   color: black;
+  overflow: auto;
 }
 
 #trust_root a:link {
