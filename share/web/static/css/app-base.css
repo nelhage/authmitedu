@@ -1,7 +1,17 @@
 body {
   background: white repeat-y center;
-  text-align: center;
+  #text-align: center;
+  #width: 400px;
+}
+
+#salutation {
   width: 400px;
+  text-align: center;
+}
+
+#verify_page {
+  width: 400px;
+  text-align: center;
 }
 
 #trust_root {

@@ -1,6 +1,8 @@
 div#keybindings {
     color: #666666;
     margin-top: 0.5em;
+    text-align: center;
+    width: 400px;
 
 }
 

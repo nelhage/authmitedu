@@ -36,7 +36,13 @@ template 'index.html' => page {
         hyperlink(url   => 'http://doxory.com',
                   label => 'Doxory');
         outs(") Enter ");
-        tt{"http://auth.mit.edu/your_username_here"};
+      
+	my $u = Jifty->web->current_user->username;
+	if ($u) {
+	tt{"http://auth.mit.edu/$u"};
+	} else {
+	tt{"http://auth.mit.edu/your_username_here"};
+	}
 
         outs(q{ into the OpenID login box. If your browser has MIT
     certificates installed, you should be prompted if you want to
@@ -68,6 +74,7 @@ template setup => page {
     my $root = get 'trust_root';
     my $identity = get 'identity';
     my $action = Jifty->web->new_action(class => 'SetupAuth');
+    div {{id is "verify_page"}
     p {
         outs("Would you like to allow");
         div {{id is "trust_root"}
@@ -95,6 +102,7 @@ template setup => page {
             key_binding  => "N"));
 
 	    render_param($action => 'remember');
+    }
     }
 };
 
