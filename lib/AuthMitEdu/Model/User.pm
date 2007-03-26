@@ -27,6 +27,11 @@ sub remote_user {
     return $user;
 }
 
+sub remote_real {
+    my $realname = $ENV{SSL_CLIENT_S_DN_CN};
+    return unless $realname;
+    return $realname;
+}
 
 sub is_identity {
     my ($self, $url) = @_;

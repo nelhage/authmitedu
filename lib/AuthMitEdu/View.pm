@@ -34,14 +34,16 @@ template setup => page {
     my $identity = get 'identity';
     my $action = Jifty->web->new_action(class => 'SetupAuth');
     p {
-        outs("The site ");
+        outs("Would you like to allow");
         div {{id is "trust_root"}
             a {{href is "$root"} $root};
         };
     };
     p {
-        outs("would like you verify your identity ($identity). " .
-             "Do you want to allow them?");
+        outs("to verify your identity ($identity)? ");
+    };
+    p {
+        outs("Doing so will not grant access to any part of your Athena account.  It will only provide confirmation that you are who you claim to be.");
     };
     form {
         for (qw(return_to identity assoc_handle trust_root)) {
@@ -51,8 +53,6 @@ template setup => page {
                 default_value => get $_);
         }
 
-        render_param($action => 'remember');
-
         outs_raw($action->button(
             label       => "Yes",
             arguments   => { action => 'yes' },
@@ -61,6 +61,8 @@ template setup => page {
             label       => "No",
             arguments   => { action => 'no' },
             key_binding  => "N"));
+
+	    render_param($action => 'remember');
     }
 };
 
