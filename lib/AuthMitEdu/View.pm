@@ -10,6 +10,14 @@ AuthMitEdu::View
 package AuthMitEdu::View;
 use Jifty::View::Declare -base;
 
+template 'index.html' => page {
+    h1 {"Welcome to auth.mit.edu"};
+    p {outs("auth.mit.edu is an ");
+       hyperlink(url => "http://openid.net", label => "OpenID");
+       outs("provider for members of the MIT Community");
+   };
+};
+
 template endpoint => sub {
     my $user = get('user');
     html {
@@ -47,10 +55,7 @@ template setup => page {
     };
     form {
         for (qw(return_to identity assoc_handle trust_root)) {
-            render_param(
-                $action       => $_,
-                render_as     => 'hidden',
-                default_value => get $_);
+            render_param($action => $_, render_as => 'hidden', default_value => get $_);
         }
 
         outs_raw($action->button(
@@ -82,5 +87,25 @@ template '/error/bad_identity' => page {
     }
 };
 
+private template 'header' => sub {
+    my ($title) = get_current_attr(qw(title));
+    Jifty->handler->apache->content_type('text/html; charset=utf-8');
+    head { 
+        with(
+            'http-equiv' => "content-type",
+            content      => "text/html; charset=utf-8"
+          ),    
+          meta {};
+        with( name => 'robots', content => 'all' ), meta {};
+        with( rel  => 'shortcut icon',
+              href => Jifty->web->url(path => '/static/images/openid.ico'),
+              type => 'image/vnd.microsoft.icon'
+             ), link {};
+        title { _($title) };
+        Jifty->web->include_css;
+        Jifty->web->include_javascript;
+      };
+
+};
 
 1;
