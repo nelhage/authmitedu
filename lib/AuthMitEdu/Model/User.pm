@@ -24,13 +24,12 @@ sub remote_user {
     my $user = AuthMitEdu::Model::User->new;
     my ($ok, $err) = $user->load_or_create(username => $username);
     die $err unless $ok;
-    return $user;
-}
-
-sub remote_real {
     my $realname = $ENV{SSL_CLIENT_S_DN_CN};
-    return unless $realname;
-    return $realname;
+    if($realname) {
+        my ($ok, $err) = $user->as_superuser->set_name($realname);
+        die $err unless $ok;
+    }
+    return $user;
 }
 
 sub is_identity {
@@ -57,8 +56,6 @@ sub root {
     $troot->load_by_cols(identity => $self, trust_root => $root);
     return $troot;
 }
-
-sub name {return shift->username;}
 
 sub current_user_can {
     my $self = shift;

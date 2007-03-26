@@ -14,9 +14,36 @@ template 'index.html' => page {
     h1 {"Welcome to auth.mit.edu"};
     p {outs("auth.mit.edu is an ");
        hyperlink(url => "http://openid.net", label => "OpenID");
-       outs("provider for members of the MIT Community");
+       outs(" provider for members of the MIT Community");
    };
-};
+
+    h2{"What is this thing?"};
+
+    p{ "OpenID is a distributed authentication system for the
+    web. Using a single OpenID, you can securely sign on to any
+    website that supports OpenID, without ever having to give them a
+    password or even create an account. auth.mit.edu gives MIT
+    certificate holders an OpenID identity."
+    }
+
+    h2{"How do I use it?"};
+
+    p{
+        outs("Go to any website that supports OpenID. (e.g. ");
+        hyperlink(url   => 'http://livejournal.com',
+                  label => 'Livejournal');
+        outs(" or ");
+        hyperlink(url   => 'http://doxory.com',
+                  label => 'Doxory');
+        outs(") Enter ");
+        tt{"http://auth.mit.edu/your_username_here"};
+
+        outs(q{ into the OpenID login box. If your browser has MIT
+    certificates installed, you should be prompted if you want to
+    allow the other site to authenticate you. Say "yes", and you'll be
+    logged in!});
+
+    } };
 
 template endpoint => sub {
     my $user = get('user');
@@ -106,6 +133,21 @@ private template 'header' => sub {
         Jifty->web->include_javascript;
       };
 
+};
+
+private template 'salutation' => sub {
+    div {{id is 'salutation'}
+         if (Jifty->web->current_user->id and Jifty->web->current_user->user_object) {
+             my $u = Jifty->web->current_user->user_object;
+             outs(_("Hiya, %1.", $u->name));
+         } else {
+             outs(_("You're not currently signed in."));
+         }
+     }
+};
+
+private template 'menu' => sub {
+    # We don't need a menu
 };
 
 1;
