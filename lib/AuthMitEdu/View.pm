@@ -35,9 +35,11 @@ template setup => page {
     my $action = Jifty->web->new_action(class => 'SetupAuth');
     p {
         outs("The site ");
-        div {{class is "trust_root"}
+        div {{id is "trust_root"}
             a {{href is "$root"} $root};
         };
+    };
+    p {
         outs("would like you verify your identity ($identity). " .
              "Do you want to allow them?");
     };
