@@ -16,8 +16,8 @@ div.form_field {
 }
 
 div.form_field label.label, div.form_field span.label {
-    float: left;
-    text-align: left;
+    float: center;
+    text-align: right;
     font-size: 80%;
     padding: 0.2em 0.5em 0 0;
 }

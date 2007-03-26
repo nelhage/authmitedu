@@ -1,6 +1,7 @@
 body {
   background: white repeat-y center;
-  textalign: center;
+  text-align: center;
+  width: 400px;
 }
 
 #trust_root {
