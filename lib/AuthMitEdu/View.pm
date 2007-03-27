@@ -59,7 +59,18 @@ template endpoint => sub {
                    href is Jifty->web->url(path => "/_/auth")}}
         }
         body {
-            h1 { "OpenID auth page for $user" }
+            h1 { "OpenID auth page for $user" };
+
+	    p {
+        	outs("This URL is for OpenID authentication and is not meant for human reading. Please see ");
+		hyperlink(url => "/", label => "our FAQ");
+		outs(" for more information.");
+	      };
+	    p {
+	    	outs("You might be able to find some information about $user in the ");
+		hyperlink(url => "http://web.mit.edu/bin/cgicso?options=username&query=$user", label => "MIT Directory");
+	      };
+
         }
     }
 };
