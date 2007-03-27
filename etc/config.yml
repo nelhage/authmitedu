@@ -9,7 +9,6 @@ framework:
     Database: authmitedu
     Driver: SQLite
     Host: localhost
-    Password: ''
     RecordBaseClass: Jifty::DBI::Record::Cachable
     User: ''
     Version: 0.0.2
