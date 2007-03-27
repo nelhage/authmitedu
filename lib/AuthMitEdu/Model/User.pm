@@ -35,7 +35,23 @@ sub remote_user {
 sub is_identity {
     my ($self, $url) = @_;
     $url = URI->new($url);
-    return $url->path eq '/' . $self->username;
+    if($url->path =~ /\/group\/./) {
+      my ($groupname) = $url->path =~ /\/group\/([a-zA-Z_\-0-9]+)/;
+      my $groupsystem = "system:" . $groupname;
+      my $ptsmem = `pts 2>/dev/null membership $groupsystem`;
+      my @ptsmem = split(/\n/, $ptsmem);
+      unless($ptsmem[0] =~ /^Members of $groupsystem \(id: \S+\) are:$/) {
+        return 0;
+      }
+      my $theuser = $self->username;
+      for(my $i = 1; $i < @ptsmem; $i++) {
+        if($ptsmem[$i] =~ /\s$theuser$/) {
+          return 1;
+        }
+      }
+    } {
+      return $url->path eq '/' . $self->username;
+    }
 }
 
 sub trusts_root {

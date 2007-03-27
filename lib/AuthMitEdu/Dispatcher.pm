@@ -3,6 +3,8 @@ package AuthMitEdu::Dispatcher;
 use Jifty::Dispatcher -base;
 
 before '*' => run {
+    use Data::Dumper;
+    warn Dumper(\%ENV);
     if(!Jifty->web->current_user->id) {
         my $user = AuthMitEdu::Model::User->remote_user;
         if($user) {
@@ -17,7 +19,13 @@ on '/error/bad_identity/**' => run {
     show '/error/bad_identity';
 };
 
-on qr{^/([a-zA-Z][a-zA-Z_0-9]+)$} => run {
+on qr{^/group/([a-zA-Z_\-0-9]+)$} => run{
+    set user=> $1;
+    show '/endpoint';
+    last_rule;
+};
+
+on qr{^/([a-zA-Z][a-zA-Z_\-0-9]+)$} => run {
     set user => $1;
     show '/endpoint';
 };
