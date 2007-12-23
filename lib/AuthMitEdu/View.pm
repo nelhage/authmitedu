@@ -39,7 +39,7 @@ template 'index.html' => page {
       
         my $uo = Jifty->web->current_user->user_object;
         if ($uo) {
-            tt{"http://auth.mit.edu/" . $u->username};
+            tt{"http://auth.mit.edu/" . $uo->username};
         } else {
             tt{"http://auth.mit.edu/your_username_here"};
         }
