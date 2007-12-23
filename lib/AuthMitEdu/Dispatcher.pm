@@ -3,8 +3,6 @@ package AuthMitEdu::Dispatcher;
 use Jifty::Dispatcher -base;
 
 before '*' => run {
-    use Data::Dumper;
-    warn Dumper(\%ENV);
     if(!Jifty->web->current_user->id) {
         my $user = AuthMitEdu::Model::User->remote_user;
         if($user) {
