@@ -37,9 +37,9 @@ template 'index.html' => page {
                   label => 'Doxory');
         outs(") Enter ");
       
-        my $u = Jifty->web->current_user->user_object->username;
-        if ($u) {
-            tt{"http://auth.mit.edu/$u"};
+        my $uo = Jifty->web->current_user->user_object;
+        if ($uo) {
+            tt{"http://auth.mit.edu/" . $u->username};
         } else {
             tt{"http://auth.mit.edu/your_username_here"};
         }
