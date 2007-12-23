@@ -128,7 +128,7 @@ template '/error/no_cert' => page {
 
 template '/error/bad_identity' => page {
     p {
-        outs("You are currently authenticated as " . Jifty->web->current_user->username .
+        outs("You are currently authenticated as " . Jifty->web->current_user->user_object_username .
             ", but are trying to authenticate as " . get('identity'));
     }
 };
