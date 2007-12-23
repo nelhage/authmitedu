@@ -37,12 +37,12 @@ template 'index.html' => page {
                   label => 'Doxory');
         outs(") Enter ");
       
-	my $u = Jifty->web->current_user->username;
-	if ($u) {
-	tt{"http://auth.mit.edu/$u"};
-	} else {
-	tt{"http://auth.mit.edu/your_username_here"};
-	}
+        my $u = Jifty->web->current_user->user_object->username;
+        if ($u) {
+            tt{"http://auth.mit.edu/$u"};
+        } else {
+            tt{"http://auth.mit.edu/your_username_here"};
+        }
 
         outs(q{ into the OpenID login box. If your browser has MIT
     certificates installed, you should be prompted if you want to
