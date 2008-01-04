@@ -62,7 +62,7 @@ template endpoint => sub {
             # care about the relative order of the `rel' and `href'
             # attributes.
             outs_raw(q{<link rel="openid.server" href="} .
-                     Jifty->web->url(path => '/_/_auth') . q{"});
+                     Jifty->web->url(path => '/_/auth') . q{"});
         }
         body {
             h1 { "OpenID auth page for $user" };
