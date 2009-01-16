@@ -52,6 +52,7 @@ on qr{^/_/auth/?$} => run {
                 unless $user->is_identity($opts{identity});
         
         if($user->trusts_root($trust_root)) {
+            delete $opts{realm};
             Jifty->web->_redirect($AuthMitEdu::server->signed_return_url(%opts));
         } elsif($user->never_trusts_root($trust_root)) {
             Jifty->web->_redirect(

@@ -48,6 +48,13 @@ template 'index.html' => page {
     certificates installed, you should be prompted if you want to
     allow the other site to authenticate you. Say "yes", and you'll be
     logged in!});
+    }
+
+    h2{"How do I ask more questions?"};
+
+    p{
+        outs("E-mail the developers at ");
+	tt{"auth-dev \@t mit.edu"};
 
     } };
 
